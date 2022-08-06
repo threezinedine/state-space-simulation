@@ -32,8 +32,8 @@ class TestE2EStateSpaceModel(unittest.TestCase):
     def test_full_state_feed_back_signal(self):
         timer = Timer()
         plant = Plant()
+        signal = FullStateFeedBackController(timer, feedback_model=plant)
         model = Model(plant)
-        signal = FullStateFeedBackController(timer, feedback_model=model)
 
         output = model.run(signal)
 

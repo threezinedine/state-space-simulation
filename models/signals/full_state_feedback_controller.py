@@ -10,4 +10,5 @@ class FullStateFeedBackController(Signal):
         self._feedback_model = feedback_model 
 
     def get_input(self):
+        self._index += 1
         return self._feedback_model.get_feedback()
