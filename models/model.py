@@ -24,17 +24,12 @@ class Model:
         else:
             return self._dtype
 
-    def _run_input_arr(self, input_arr:np.ndarray, dtype=None):
-        dtype = self._get_dtype(dtype)
-        result = []
-        for input_data in input_arr:
-            result.append(self._plant.run(input_data))
-
-        result = np.array(result, dtype=dtype)
-        return result.reshape(-1, self._plant.output_dim)
-
     def run(self, input_signal:ISignal, dtype=None):
-        input_arr = input_signal.get_arr()
         dtype = self._get_dtype(dtype)
-        output = self._run_input_arr(input_arr, dtype=dtype)
-        return output
+
+        result = []
+
+        while input_signal.is_finished():
+            input_data = input_signal.get_input()
+            result.append(self._plant.run(input_data))
+        return np.array(result, dtype=dtype)

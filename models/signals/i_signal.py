@@ -4,5 +4,9 @@ import numpy as np
 
 class ISignal(ABC):
     @abstractmethod
-    def get_arr(self) -> np.ndarray:
+    def get_input(self) -> np.ndarray:
+        raise NotImplementedError()
+
+    @abstractmethod
+    def is_finished(self) -> bool:
         raise NotImplementedError()

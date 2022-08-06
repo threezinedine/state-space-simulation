@@ -1,8 +1,7 @@
 from abc import ABC, abstractmethod
-import numpy as np
 
 
-class ITimer(ABC):
+class IFeedBack(ABC):
     @abstractmethod
-    def get_length(self) -> int:
+    def get_feedback(self):
         raise NotImplementedError()

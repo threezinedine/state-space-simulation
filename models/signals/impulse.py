@@ -1,10 +1,12 @@
-from .i_signal import ISignal
+from .signal import Signal
 import numpy as np
+from ..timer import ITimer
 
 
-class Impulse(ISignal):
-    def __init__(self, timer):
-        self._timer = timer
+class Impulse(Signal):
+    def __init__(self, timer:ITimer):
+        Signal.__init__(self, timer)
 
-    def get_arr(self) -> np.ndarray:
-        return np.array([[0.]])
+    def get_input(self) -> np.ndarray:
+        self._index += 1
+        return 0.
