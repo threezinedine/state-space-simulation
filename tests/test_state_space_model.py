@@ -39,7 +39,7 @@ class TestStateSpaceModel(unittest.TestCase):
         assert isinstance(output, np.ndarray) 
         assert output.dtype == dtype
         self.assertTupleEqual(output.shape, expected.shape)
-        assert output.all() == expected.all()
+        self.assertListEqual(output.tolist(), expected.tolist())
 
     @parameterized.expand([
             [1000, DTYPE, 3, 3],
@@ -66,4 +66,4 @@ class TestStateSpaceModel(unittest.TestCase):
         assert isinstance(output, np.ndarray) 
         assert output.dtype == dtype
         self.assertTupleEqual(output.shape, expected.shape)
-        assert output.any() != expected.any()
+        self.assertNotEqual(output.tolist(), expected.tolist())

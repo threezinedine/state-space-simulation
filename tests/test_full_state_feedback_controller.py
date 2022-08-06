@@ -3,13 +3,26 @@ from parameterized import parameterized
 from unittest.mock import Mock
 from models.timer import ITimer
 from models.signals import IFeedBack, FullStateFeedBackController
+import numpy as np
+
+
+DTYPE = np.float32
 
 
 class TestFullStateFeedbackController(unittest.TestCase):
-#    def test_get_input_method(self):
-#        timer = Mock(spec=ITimer)
-#
-#        feedback_model = Mock(spec=IFeedBack)
-#
-#        controller = FullStateFeedBackController()
-    pass
+    @parameterized.expand([
+            [np.array([[1., 1.]]), np.array([[2., 3.]]), np.array([[5.]]), DTYPE],
+            [np.array([[1., 1.]]), None, np.array([[2.]]), DTYPE] 
+        ]) 
+    def test_get_input_method(self, input_state, gain_param, expected, dtype):
+        timer = Mock(spec=ITimer)
+
+        feedback_model = Mock(spec=IFeedBack)
+        feedback_model.get_feedback.return_value = input_state
+
+        controller = FullStateFeedBackController(timer, feedback_model, gain_param)
+
+        output = controller.get_input()
+
+        assert isinstance(output, np.ndarray)
+        self.assertListEqual(output.tolist(), expected.tolist())
