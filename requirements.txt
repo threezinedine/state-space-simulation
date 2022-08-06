@@ -7,6 +7,7 @@ jedi==0.18.1
 msgpack==1.0.4
 numpy==1.23.1
 packaging==21.3
+parameterized==0.8.1
 parso==0.8.3
 pluggy==1.0.0
 py==1.11.0

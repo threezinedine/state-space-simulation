@@ -1,6 +1,7 @@
 import unittest
 import pytest
 import numpy as np
+from parameterized import parameterized
 from models import Model
 from models.signals import Impulse
 from models.timer import Timer
@@ -11,24 +12,19 @@ DTYPE = np.float32
 
 
 class TestE2EStateSpaceModel(unittest.TestCase):
-    def test_impulse_signal_input_DTYPE_type(self):
+    @parameterized.expand([
+            [DTYPE],
+            [np.int32],
+            [np.float64],
+            [np.int64]
+        ])
+    def test_impulse_signal_input_DTYPE_type(self, dtype):
         timer = Timer()
         signal = Impulse(timer)
         plant = Plant()
-        model = Model(plant, dtype=DTYPE)
+        model = Model(plant, dtype=dtype)
 
         output = model.run(signal)
 
         assert isinstance(output, np.ndarray)
-        assert output.dtype == DTYPE
-
-    def test_impulse_signal_input_int32_type(self):
-        timer = Timer()
-        signal = Impulse(timer)
-        plant = Plant()
-        model = Model(plant, dtype=np.int32)
-
-        output = model.run(signal)
-
-        assert isinstance(output, np.ndarray)
-        assert output.dtype == np.int32
+        assert output.dtype == dtype

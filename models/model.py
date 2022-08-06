@@ -29,7 +29,9 @@ class Model:
         result = []
         for input_data in input_arr:
             result.append(self._plant.run(input_data))
-        return np.array(result, dtype=dtype).reshape(-1, self._plant.output_dim)
+
+        result = np.array(result, dtype=dtype)
+        return result.reshape(-1, self._plant.output_dim)
 
     def run(self, input_signal:ISignal, dtype=None):
         input_arr = input_signal.get_arr()
