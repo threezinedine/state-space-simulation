@@ -13,7 +13,7 @@ DTYPE = np.float32
 
 class TestStateSpaceModel(unittest.TestCase):
     @parameterized.expand([
-            [1000, DTYPE, 3, 3],
+            [10, DTYPE, 3, 3],
             [1000, np.float32, 4, 3],
             [2200, np.int32, 4, 4],
             [1200, np.int32, 5, 4],
@@ -21,7 +21,8 @@ class TestStateSpaceModel(unittest.TestCase):
     def test_model_object_run_method_with_zeros_initial_state_zero_plant_return(self, iterate_times, 
             dtype, num_states, output_dim):
         signal = Mock(spec=ISignal)
-        signal.get_arr.return_value = np.zeros(shape=(iterate_times, num_states), dtype=dtype)
+        signal.get_input.return_value = np.zeros(shape=(iterate_times, num_states), dtype=dtype)
+        signal.is_finished.side_effect = [False] * iterate_times + [True]
 
         plant = Mock(spec=IPlant)
         plant.num_states = num_states
@@ -33,6 +34,7 @@ class TestStateSpaceModel(unittest.TestCase):
         model = Model(plant)
 
         output = model.run(signal, dtype=dtype)
+        print(output.shape)
 
         assert isinstance(output, np.ndarray) 
         assert output.dtype == dtype
@@ -47,7 +49,8 @@ class TestStateSpaceModel(unittest.TestCase):
     def test_model_run_method_non_zero_initial_states(self, iterate_times, 
             dtype, num_states, output_dim):
         signal = Mock(spec=ISignal)
-        signal.get_arr.return_value = np.random.rand(iterate_times, num_states)
+        signal.get_input.return_value = np.random.rand(iterate_times, num_states)
+        signal.is_finished.side_effect = [False] * iterate_times + [True]
 
         plant = Mock(spec=IPlant)
         plant.num_states = num_states

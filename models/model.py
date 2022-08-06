@@ -25,4 +25,4 @@ class Model:
         while not input_signal.is_finished():
             input_data = input_signal.get_input()
             result.append(self._plant.run(input_data))
-        return np.array(result, dtype=dtype)
+        return np.array(result, dtype=dtype).reshape(-1, self._plant.output_dim)
