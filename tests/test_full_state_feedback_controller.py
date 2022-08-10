@@ -14,7 +14,7 @@ class TestFullStateFeedbackController(unittest.TestCase):
             [np.array([[1., 1.]]), np.array([[2., 3.]]), np.array([[5.]]), DTYPE],
             [np.array([[1., 1.]]), None, np.array([[2.]]), DTYPE],
             [np.array([[2., 1.]]), None, np.array([[3.]]), DTYPE],
-            [np.array([[2., 1.]]), None, np.array([[3.]]), np.float64] 
+            [np.array([[2., 1.]]), None, np.array([[3.]]), np.float64],
         ]) 
     def test_get_input_method(self, input_state, gain_param, expected, dtype):
         timer = Mock(spec=ITimer)

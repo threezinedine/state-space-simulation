@@ -7,7 +7,7 @@ DTYPE = np.float32
 
 
 class Model:
-    def __init__(self, plant:IPlant, initial_state:np.ndarray=None, dtype=DTYPE):
+    def __init__(self, plant:IPlant, dtype=DTYPE):
         self._dtype = dtype
         self._plant = plant
 

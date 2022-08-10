@@ -12,7 +12,7 @@ class Plant(IPlant):
 
     def __init__(self, initial_state:np.ndarray=None, dtype=DTYPE):
         if initial_state is not None:
-            self._state = state
+            self._state = initial_state
         else:
             self._state = np.zeros(shape=(1, self.num_states), dtype=dtype)
 
