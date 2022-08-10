@@ -13,7 +13,7 @@ class Impulse(Signal):
     def get_input(self, dtype=DTYPE) -> np.ndarray:
         self._index += 1
 
-        timer_input = self._timer.get_timer_input().copy()
+        timer_input = self._timer.get_time_input().copy()
         output = timer_input.copy()
 
         for index, input_data in enumerate(timer_input):

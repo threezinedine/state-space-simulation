@@ -12,11 +12,13 @@ DTYPE = np.float32
 
 class TestImpulse(unittest.TestCase):
     @parameterized.expand([
-            [np.array([-.1, 0., .1, .2, .3], dtype=DTYPE), np.array([0., 1., 0., 0., 0.], dtype=DTYPE)]
+            [np.array([-.1, 0., .1, .2, .3], dtype=DTYPE), np.array([0., 1., 0., 0., 0.], dtype=DTYPE)],
+            [np.array([-.2, -.1, 0., .1, .2], dtype=DTYPE), np.array([0., 0., 1., 0., 0.], dtype=DTYPE)],
+            [np.array([.1, .15, .2], dtype=DTYPE), np.array([0, 0, 0], dtype=DTYPE)]
         ])
     def test_impulse_get_input_function_with_different_time(self, input_time, expected):
         timer = Mock(spec=ITimer)  
-        timer.get_timer_input.return_value = input_time
+        timer.get_time_input.return_value = input_time
         impulse = Impulse(timer)
 
         output = impulse.get_input(dtype=DTYPE)

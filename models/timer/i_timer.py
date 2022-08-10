@@ -8,5 +8,5 @@ class ITimer(ABC):
         raise NotImplementedError()
 
     @abstractmethod
-    def get_timer_input(self) -> np.ndarray:
+    def get_time_input(self) -> np.ndarray:
         raise NotImplementedError()
