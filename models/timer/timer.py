@@ -5,6 +5,7 @@ import numpy as np
 START_TIME = 0
 STOP_TIME = 1
 ITERVAL = .2
+DTYPE = np.float32
 
 
 class Timer(ITimer):
@@ -15,3 +16,6 @@ class Timer(ITimer):
 
     def get_length(self):
         return int((self._stop_time - self._start_time)/self._iterval)
+
+    def get_timer_input(self):
+        return np.zeros(shape=(self.get_length()), dtype=DTYPE)
